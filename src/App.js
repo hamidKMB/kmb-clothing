@@ -5,7 +5,7 @@ import HomePage from "./pages/home-page/homepage.component"
 import ShopPage from "./pages/shop-page/shoppage.component"
 import SignInSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from './components/header/header.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDetails } from './firebase/firebase.utils';
 
 import "./App.css";
 
@@ -18,19 +18,46 @@ class App extends React.Component{
     }
   }
 
-  unsubscribeFromAuth = null;  // The Concept Of Subscribtion 
+  unSubscribeFromAuth = null;   // The Concept Of Subscribtion 
 
   componentDidMount() {
     //subscribe
-    this.onsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({currentUser: user })
-      console.log(user);
+    this.unSubscribeFromAuth = auth.onAuthStateChanged ( async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDetails(userAuth); //pass the Authenticated User Details To The FireStore
+
+        //--------------------------the Course Solution to Store Data On State-----------------
+        userRef.onSnapshot((snapShot) => {
+          this.setState(
+            {
+              currentUser: {
+                id: snapShot.id,
+                ...snapShot.data(),
+              },
+            },
+            () => console.log(this.state)
+          );
+        });
+
+        //----------------------my Solution to Store Data on State-----------------------------
+        // const userData = await userRef.get();
+        // this.setState(
+        //   {
+        //     currentUser: {
+        //       id: userData.id,
+        //       ...userData.data(),
+        //     },
+        //   },
+        //   () => console.log(this.state)
+        // );
+      }
+      this.setState({currentUser: userAuth});
     })
   }
 
   componentWillUnmount(){
     //unsubscribe user when the component unmount
-    this.unsubscribeFromAuth()
+    this.unSubscribeFromAuth();
   }
 
   render() {
