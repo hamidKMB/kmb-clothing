@@ -13,7 +13,7 @@ const config = {
 };
 
 // function for add data to firestore
-export const createUserProfileDetails = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
     const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -30,7 +30,6 @@ export const createUserProfileDetails = async (userAuth, additionalData) => {
         //create the properties the displayName and email
         const createdAt = new Date();
         // create the property created At
-
         try {
         await userRef.set({ displayName, createdAt, email, ...additionalData });
         } catch (error) {

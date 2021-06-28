@@ -5,7 +5,7 @@ import HomePage from "./pages/home-page/homepage.component"
 import ShopPage from "./pages/shop-page/shoppage.component"
 import SignInSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from './components/header/header.component';
-import { auth, createUserProfileDetails } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import "./App.css";
 
@@ -24,19 +24,17 @@ class App extends React.Component{
     //subscribe
     this.unSubscribeFromAuth = auth.onAuthStateChanged ( async userAuth => {
       if (userAuth) {
-        const userRef = await createUserProfileDetails(userAuth); //pass the Authenticated User Details To The FireStore
+        const userRef = await createUserProfileDocument(userAuth); //pass the Authenticated User Details To The FireStore
 
         //--------------------------the Course Solution to Store Data On State-----------------
         userRef.onSnapshot((snapShot) => {
-          this.setState(
-            {
+          this.setState({
               currentUser: {
                 id: snapShot.id,
                 ...snapShot.data(),
               },
-            },
-            () => console.log(this.state)
-          );
+            });
+          console.log(this.state);
         });
 
         //----------------------my Solution to Store Data on State-----------------------------
@@ -47,8 +45,8 @@ class App extends React.Component{
         //       id: userData.id,
         //       ...userData.data(),
         //     },
-        //   },
-        //   () => console.log(this.state)
+        //   }
+        //   ,() => console.log(this.state)
         // );
       }
       this.setState({currentUser: userAuth});
