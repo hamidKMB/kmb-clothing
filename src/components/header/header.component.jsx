@@ -5,7 +5,9 @@ import {ReactComponent as Logo} from './crown-logo/4.1 crown.svg'
 import { auth } from "../../firebase/firebase.utils";
 import './header.styles.scss';
 
-const Header = ({current}) => {
+import { connect } from "react-redux";
+
+const Header = ({currentUser}) => {
     return (
       <div className="header">
         <Link to="/">
@@ -18,7 +20,7 @@ const Header = ({current}) => {
           <Link to="shop" className="option">
             CONTACT
           </Link>
-          {current ? ( // not null == True
+          {currentUser ? ( // not null == True
             <div className="option" onClick={() => auth.signOut()}>
               SIGN OUT
             </div> //auth.signOut {fireBase Method}
@@ -33,4 +35,9 @@ const Header = ({current}) => {
     );
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser,
+  //from rootReducer Select the user and then from setUser Function select the currentUser;
+});
+
+export default connect(mapStateToProps)(Header);
