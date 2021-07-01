@@ -25,6 +25,7 @@ class App extends React.Component{
         const userRef = await createUserProfileDocument(userAuth); //pass the Authenticated User Details To The FireStore
 
         //--------------------------the Course Solution to Store Data On State-----------------
+        //----------------------this code Changed When The Redux Added To Project--------------
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
               currentUser: {
@@ -81,3 +82,5 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+// mapDispatchToProps is a function that gets the Actions and pass them to the app
+// it's everything i got right now at 15:05 1400/04/10

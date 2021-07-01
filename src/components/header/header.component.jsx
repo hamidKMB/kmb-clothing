@@ -41,3 +41,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Header);
+// with mapStateToProps We/re connect our Component to Store.
+// so Each time The Single-Source-Of-Truth Changes The Component Re-Render Itselfs.
+// it's every thing that mapStatetoProps Done!
