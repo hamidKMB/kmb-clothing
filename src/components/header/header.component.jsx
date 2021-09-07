@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CartIcon from "../card-icon/card-icon.component";
+import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import {ReactComponent as Logo} from './crown-logo/4.1 crown.svg'
 import { auth } from "../../firebase/firebase.utils";
