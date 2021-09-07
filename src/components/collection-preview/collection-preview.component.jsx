@@ -14,9 +14,9 @@ const CollectionPreview = ({title, items}) => {
                         return(
                             idx < 4
                         )
-                    }).map(({id, ...otherItemProperty})=> { 
+                    }).map((item)=> { 
                         return(
-                        <CollectionItem key={id} {...otherItemProperty}/>
+                        <CollectionItem key={item.id} item={item}/>
                         )
                     })
                 }
