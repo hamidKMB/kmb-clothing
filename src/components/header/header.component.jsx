@@ -5,6 +5,9 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import {ReactComponent as Logo} from './crown-logo/4.1 crown.svg'
 import { auth } from "../../firebase/firebase.utils";
 import './header.styles.scss';
+import {createStructuredSelector} from "reselect"
+import { selectCartHidden } from "../../redux/cart/cart-selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 import { connect } from "react-redux";
 
@@ -40,9 +43,9 @@ const Header = ({currentUser, hidden}) => {
     );
 }
 
-const mapStateToProps = ({user: {currentUser} , cart: {hidden}}) => ({
-  currentUser ,
-  hidden
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
   //from rootReducer Select the user and then from setUser Function select the currentUser;
 });
 

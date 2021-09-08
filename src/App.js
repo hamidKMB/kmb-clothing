@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-
+import {createStructuredSelector} from "reselect"
 import { setCurrentUser } from './redux/user/user.actions';
 
 import HomePage from "./pages/home-page/homepage.component"
@@ -12,6 +12,7 @@ import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import "./App.css";
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 class App extends React.Component{
   unSubscribeFromAuth = null;   // The Concept Of Subscribtion 
@@ -73,8 +74,8 @@ class App extends React.Component{
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 })
 
 const mapDispatchToProps = dispatch => ({
