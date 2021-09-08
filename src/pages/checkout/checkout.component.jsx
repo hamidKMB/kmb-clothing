@@ -9,25 +9,23 @@ import "./checkout.styles.scss"
 
 const CheckoutPage = ({cartItems, total}) => {
     const checkoutHeader = ["Product", "Description", "Quantity", "Price", "Remove"] //header-Blocks
-    return(
-        <div className="checkout-page">
-            <div className="checkout-header">
-            {
-                checkoutHeader.map((item, index) => (
-                    <div className="header-block">
-                        <span key={index}>{item}</span>
-                    </div>
-                ))
-            }
+    return (
+      <div className="checkout-page">
+        <div className="checkout-header">
+          {checkoutHeader.map((item, index) => (
+            <div className="header-block" key={index}>
+              <span>{item}</span>
             </div>
-            {
-                cartItems.map((item) => <CheckoutItem key={item.id} cartItem={item}/>)
-            }
-            <div className="total">
-                <span>TOTAL: ${total}</span>
-            </div>
+          ))}
         </div>
-    )
+        {cartItems.map((item) => (
+          <CheckoutItem key={item.id} cartItem={item} />
+        ))}
+        <div className="total">
+          <span>TOTAL: ${total}</span>
+        </div>
+      </div>
+    );
 }
 
 const mapStateToProps = createStructuredSelector({
