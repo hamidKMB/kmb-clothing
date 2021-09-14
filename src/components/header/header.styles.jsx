@@ -1,11 +1,13 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import { Link } from "react-router-dom";
 
-const optionContainerStyles = css`
-  padding: 10px 15px;
-  cursor: pointer;
-`;
+// const optionContainerStyles = css`
+//   padding: 10px 15px;
+//   cursor: pointer;
+// `;
+
+// we use the top approach when we have multiple elements with same Style
 
 export const HeaderContainer = styled.div`
   height: 70px;
@@ -29,10 +31,7 @@ export const OptionsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const OptionDiv = styled.div`
-  ${optionContainerStyles}
-`;
-
 export const OptionLink = styled(Link)`
-  ${optionContainerStyles}
+  padding: 10px 15px;
+  cursor: pointer;
 `;

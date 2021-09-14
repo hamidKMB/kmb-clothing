@@ -1,6 +1,5 @@
 {
   "name": "kmb-clothing",
-  "homepage": "kmbclothing.ir",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
