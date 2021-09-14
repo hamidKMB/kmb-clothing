@@ -10,18 +10,17 @@ const ReactCheckoutStripe = ({price}) => {
     const onToken = () => {
         alert("your Paymen Done!")
     }
-    return(
-        <StripeCheckout
-            name="payment"
-            shippingAddress
-            billingAddress
-            token = {onToken}
-            panelLabel = {`Your Total is $${price}`}
-            amount = { priceForStripe }
-            stripeKey = { publishableKey }
-
-        />
-    )
+    return (
+      <StripeCheckout
+        name={`Your Total is $${price}`}
+        shippingAddress
+        billingAddress
+        token={onToken}
+        panelLabel={`Your Total is $${price}`}
+        amount={priceForStripe}
+        stripeKey={publishableKey}
+      />
+    );
 }
 
 export default ReactCheckoutStripe
