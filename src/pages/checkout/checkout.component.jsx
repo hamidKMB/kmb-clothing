@@ -6,6 +6,7 @@ import { selectCartItems, selectCartTotal } from "../../redux/cart/cart-selector
 import CheckoutItem from "../../components/checkout-item/checkout-item.component"
 
 import "./checkout.styles.scss"
+import ReactCheckoutStripe from "../../components/react-checkout-stripe/checkout-stripe.component"
 
 const CheckoutPage = ({cartItems, total}) => {
     const checkoutHeader = ["Product", "Description", "Quantity", "Price", "Remove"] //header-Blocks
@@ -24,6 +25,7 @@ const CheckoutPage = ({cartItems, total}) => {
         <div className="total">
           <span>TOTAL: ${total}</span>
         </div>
+        <ReactCheckoutStripe/>
       </div>
     );
 }
