@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const BaseButton = css`
   background-color: black;
   color: white;
-
+  border: none;
   &:hover {
     background-color: white;
     color: black;
@@ -13,9 +13,11 @@ const BaseButton = css`
 
 const GoogleSignIn = css`
   background-color: #4285f4;
-  color: #fff;
+  color: white;
+  border: none;
   &:hover {
     background-color: #357ae8;
+    border: 1px solid black;
   }
 `;
 
@@ -30,12 +32,12 @@ const Inverted = css`
   }
 `;
 
-const detectTypeOfButton = ({ inverted, IsGoogleSignIn }) => {
-  if (IsGoogleSignIn) {
+const detectTypeOfButton = (props) => {
+  if (props.isGoogleSignIn) {
     return GoogleSignIn;
   }
 
-  return inverted ? Inverted : BaseButton;
+  return props.inverted ? Inverted : BaseButton;
 };
 
 export const Button = styled.button`
@@ -49,9 +51,9 @@ export const Button = styled.button`
   text-transform: uppercase;
   font-family: "Open Sans Condensed";
   font-weight: bolder;
-  border: none;
   cursor: pointer;
   display: flex;
   justify-content: center;
-  ${(props) => detectTypeOfButton(props)}
+
+  ${detectTypeOfButton}
 `;

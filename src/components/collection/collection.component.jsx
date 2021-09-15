@@ -6,27 +6,22 @@ import { selectCollection } from "../../redux/shop/shop-selectors";
 import CollectionItem from "../collection-item/collection-item.component";
 
 import {
-  CollectionPage,
-  Title,
-  ItemsContainer,
-  CollectionItemStyled,
+  CollectionPageContainer,
+  CollectionTitle,
+  CollectionItemsContainer,
 } from "./collection.styles";
 
 const Collection = ({ collection }) => {
   const { title, items } = collection;
   return (
-    <CollectionPage>
-      <Title>{title}</Title>
-      <ItemsContainer>
+    <CollectionPageContainer>
+      <CollectionTitle>{title}</CollectionTitle>
+      <CollectionItemsContainer>
         {items.map((item) => (
-          <CollectionItemStyled
-            className="styled-Component"
-            key={item.id}
-            item={item}
-          />
+          <CollectionItem key={item.id} item={item} />
         ))}
-      </ItemsContainer>
-    </CollectionPage>
+      </CollectionItemsContainer>
+    </CollectionPageContainer>
   );
 };
 

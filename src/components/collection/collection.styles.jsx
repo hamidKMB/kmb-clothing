@@ -1,22 +1,20 @@
 import styled from "styled-components";
-import CollectionItem from "../collection-item/collection-item.component";
 
-export const CollectionItemStyled = styled(CollectionItem)`
-  margin-bottom: 30px;
-`;
-
-export const CollectionPage = styled.div`
+export const CollectionPageContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const Title = styled.h2`
+export const CollectionTitle = styled.h2`
   font-size: 38px;
   margin: 0 auto 30px;
 `;
 
-export const ItemsContainer = styled.div`
+export const CollectionItemsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
+  & > div {
+    margin-bottom: 30px;
+  }
 `;
