@@ -61,8 +61,7 @@ export const ContentTitle = styled.h1`
 `;
 
 export const ContentSubtitle = styled.span`
-  font-weight: bold;
-  margin: 0 0 2px;
-  font-size: 22px;
-  color: #4a4a4a;
+  font-weight: lighter;
+  margin-top: 0;
+  font-size: 16px;
 `;
