@@ -12,10 +12,10 @@ const CollectionsOverviewContainer = styled.div`
   flex-direction: column;
 `;
 
-const CollectionOverview = ({ collection }) => {
+const CollectionOverview = ({ collections }) => {
   return (
     <CollectionsOverviewContainer>
-      {collection.map(({ id, ...otherCollectionProps }) => {
+      {collections.map(({ id, ...otherCollectionProps }) => {
         return <CollectionPreview key={id} {...otherCollectionProps} />;
       })}
     </CollectionsOverviewContainer>
@@ -23,7 +23,7 @@ const CollectionOverview = ({ collection }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  collection: selectShopItemsForPreview,
+  collections: selectShopItemsForPreview,
 });
 
 export default connect(mapStateToProps)(CollectionOverview);
