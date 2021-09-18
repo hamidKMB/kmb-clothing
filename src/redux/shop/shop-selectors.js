@@ -20,3 +20,13 @@ export const selectCollection = memoize((selectedUrlParam) =>
     collections ? collections[selectedUrlParam] : null
   )
 );
+
+export const selectIsFetchingApiCall = createSelector(
+  [selectShop],
+  (shop) => shop.isFetching
+);
+
+export const selectIfFetchingCollections = createSelector(
+  [selectShop],
+  (shop) => !!shop.collections
+);

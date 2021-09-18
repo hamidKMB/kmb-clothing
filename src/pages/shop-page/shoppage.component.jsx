@@ -1,42 +1,29 @@
 import React from "react";
 import { Route } from "react-router";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import CollectionOverview from "../../components/collection-overview/collection-overview.component";
 import Collection from "../../components/collection/collection.component";
 import withSpinner from "../../components/with-spinner/with-spinner.component";
 
-import { connect } from "react-redux";
-import { updateCollections } from "../../redux/shop/shop-actions";
-
 import {
-  firestore,
-  convertCollectionsSnapshotToMap,
-} from "../../firebase/firebase.utils";
+  selectIsFetchingApiCall,
+  selectIfFetchingCollections,
+} from "../../redux/shop/shop-selectors";
+import { fetchApiCallStartAsync } from "../../redux/shop/shop-actions";
 
 const CollectionOverviewWithSpinner = withSpinner(CollectionOverview);
 const CollectionWithSpinenr = withSpinner(Collection);
 
 class ShopPage extends React.Component {
-  state = {
-    loading: true,
-  };
-
-  unsubscribeFromSnapshot = null;
-
   componentDidMount() {
-    const { updateCollections } = this.props;
-    const collectionRef = firestore.collection("collection");
-
-    collectionRef.onSnapshot((snapshot) => {
-      console.log(snapshot);
-      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-      updateCollections(collectionsMap);
-      this.setState({ loading: false });
-    });
+    this.props.fetchApiCallStartAsync();
   }
 
   render() {
-    const { match } = this.props;
+    const { match, isFetchingCollectionApi, isFetchingCollectionsExist } =
+      this.props;
     return (
       <div className="shop-page">
         <Route
@@ -44,7 +31,7 @@ class ShopPage extends React.Component {
           path={`${match.path}`}
           render={(props) => (
             <CollectionOverviewWithSpinner
-              isLoading={this.state.loading}
+              isLoading={isFetchingCollectionApi}
               {...props}
             />
           )}
@@ -52,7 +39,10 @@ class ShopPage extends React.Component {
         <Route
           path={`${match.path}/:collectionId`}
           render={(props) => (
-            <CollectionWithSpinenr isLoading={this.state.loading} {...props} />
+            <CollectionWithSpinenr
+              isLoading={!isFetchingCollectionsExist}
+              {...props}
+            />
           )}
         />
       </div>
@@ -60,9 +50,13 @@ class ShopPage extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCollections: (collectionsMap) =>
-    dispatch(updateCollections(collectionsMap)),
+const mapStateToProps = createStructuredSelector({
+  isFetchingCollectionApi: selectIsFetchingApiCall,
+  isFetchingCollectionsExist: selectIfFetchingCollections,
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = (dispatch) => ({
+  fetchApiCallStartAsync: () => dispatch(fetchApiCallStartAsync()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
