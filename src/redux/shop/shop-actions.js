@@ -22,7 +22,7 @@ export const fetchApiCallStartAsync = () => {
   //this is Redux-Thunk
   return (dispatch) => {
     const collectionRef = firestore.collection("collection");
-    dispatch(fetchApiCallStart);
+    dispatch(fetchApiCallStart());
 
     collectionRef
       .get()
